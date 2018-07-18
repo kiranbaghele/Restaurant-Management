@@ -1,0 +1,33 @@
+<h1><center>Restaurants</center></h1>
+<br />
+<span><%= link_to :Add_Restaurants, new_restaurant_path, class: "btn btn-success" %></span>
+<span><%= link_to "Create_Your_Recipes", recipes_path, class: "btn btn-success pull-right"%></span><br />
+<br />
+<div class="container">
+<table id="restaurents_table" class="table table-bordered" >
+  <thead>
+    <tr class="header">
+      <th>Name</th>
+      <th>Sign</th>
+      <th>Price</th>
+      <th>User</th>
+      <th colspan="3"><center>Actions</center></th>
+    </tr>
+   </thead>
+   <tbody>
+    <% @restaurants.each do |r| %>
+      <tr>
+        <td><%= r.name %></td>
+        <td><%= r.sign %></td>
+        <td><%= r.price %></td>
+        <td><%= r.user.email %></td>
+        <td><%= link_to :Show, restaurant_path(r.id), class: "btn btn-xs btn-success" %></td>
+         <% if r.user == current_user %>
+           <td><%= link_to :Edit, edit_restaurant_path(r.id), class: "btn btn-xs btn-warning" %></td>
+           <td><%=link_to :Delete ,restaurant_path(r.id), method: "delete", data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"%></td>
+         <% end %>
+       </tr>
+     <% end %>
+  </tbody>
+ </table>
+</div>

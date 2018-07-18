@@ -1,0 +1,52 @@
+$(".add-ingredients").find("tbody").last().append(("<%= escape_javascript(render(:partial => "add_new_ingredient.html")) %>"))
+
+$(".ingredient-name").on("keyup",function(){
+
+
+})
+
+$('.remove-row').on('click', function(){
+  var parent_row = $(this).parents(".ingredients-row")
+
+  console.log(parent_row)
+
+  var destroy_field = parent_row.find(".row-destroy").find("input")
+
+  console.log(destroy_field.val())
+
+  destroy_field.val("true")
+  parent_row.hide();
+});
+
+$(".ingredient-name").on("keyup", function(){
+  search_autocomplete()
+})
+
+function search_autocomplete(){
+ $(".ingredient-name").autocomplete({
+   minLength: 2,
+
+   source: function(req, res){
+     console.log("======>",req.term)
+
+
+     $.ajax({
+       dataType: "json",
+       type: "get",
+       data: {query: req.term, remote: true},
+       url: "/ingredients/get_search_data",
+
+       // success: function(res){
+       //   console.log("======>",res)
+       // }
+
+       success: function(result){
+         console.log("=========result=========>",result)
+         res (result.arr)
+       }
+     })
+
+   }
+ })
+
+}

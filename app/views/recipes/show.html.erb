@@ -1,0 +1,25 @@
+<div>
+  <%= link_to :Go_back_to_index, recipes_path, class: "btn btn-success" %>
+</div>
+
+<!-- <div>
+  image: <%#= image_tag @recipe.image.url(:medium) %>
+</div> -->
+
+<div>
+  name: <%= @recipe.dish_name%>
+</div>
+
+<div>
+  sign: <%=@recipe.sign%>
+</div>
+
+<div>
+  recipe_direction: <%=@recipe.recipe_direction%>
+</div>
+
+<div>
+  price: <%=@recipe.price%>
+</div>
+
+<div> image: <%= image_tag @recipe.image_url(:thumb).to_s %></div>

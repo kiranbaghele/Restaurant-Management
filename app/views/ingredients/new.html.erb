@@ -1,0 +1,21 @@
+<h1>Add new ingredients</h1>
+<%= form_for @ingredient do |i|%>
+  <div>
+    <%= i.label :ingredient_name%><br />
+    <%= i.text_field :ingredient_name%>
+  </div>
+  <div>
+    <%= i.label :ingredient_quantity%><br />
+    <%= i.text_field :ingredient_quantity%>
+  </div>
+  <div>
+    <%= i.label :quantity_measure%><br />
+    <%= i.text_field :quantity_measure%>
+  </div>
+  <div>
+    <%= i.label :sign%><br />
+    <%= i.text_field :sign%>
+  </div>
+  
+  <%= i.submit %>
+<%end%>

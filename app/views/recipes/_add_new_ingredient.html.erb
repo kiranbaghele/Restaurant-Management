@@ -1,0 +1,13 @@
+<tr id="add_ingredient" class="ingredients-row">
+  <td>
+    <%= text_field_tag "recipe[recipe_ingredient_attributes][#{@counter}][ingredient_name]", nil, { :class => 'ingredient-name' } %>
+    <p3 class="row-destroy"> <%= hidden_field_tag "recipe[recipe_ingredient_attributes][#{@counter}][_destroy]", nil, { :class => '' } %> </p3>
+    <%= text_field_tag "recipe[recipe_ingredient_attributes][#{@counter}][ingredient_id]", nil, { :class => '' }%>
+  </td>
+
+  <td><%= text_field_tag "recipe[recipe_ingredient_attributes][#{@counter}][ingredient_quantity]", nil, { :class => '' } %></td>
+  <td><%= text_field_tag "recipe[recipe_ingredient_attributes][#{@counter}][quantity_measure]", nil, { :class => '' } %></td>
+  <td><%= text_field_tag "recipe[recipe_ingredient_attributes][#{@counter}][sign]", nil, { :class => '' } %></td>
+  <td class="remove-row btn btn-xs btn-danger" >remove</td>
+
+</tr>

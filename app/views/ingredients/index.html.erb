@@ -1,0 +1,32 @@
+<h1><center>Ingredients</center></h1>
+<div><%= link_to :Add_Ingredients, new_ingredient_path, class: "btn btn-success" %></div>
+
+<br />
+<div class="container">
+<table id="ingredients_table" class="table table-bordered" >
+  <thead>
+    <tr class="header">
+      <th>Ingredient Name</th>
+      <th>Ingredient Quantity</th>
+      <th>Quantity Measure</th>
+      <th>Sign</th>
+      <th colspan="3"><center>Actions</center></th>
+    </tr>
+   </thead>
+   <tbody>
+    <% @ingredients.each do |i| %>
+      <tr>
+        <td><%= i.ingredient_name %></td>
+        <td><%= i.ingredient_quantity %></td>
+        <td><%= i.quantity_measure %></td>
+        <td><%= i.sign %></td>
+        <td><%= link_to :Show, ingredient_path(i.id), class: "btn btn-xs btn-success" %></td>
+           <td><%= link_to :Edit, edit_ingredient_path(i.id), class: "btn btn-xs btn-warning" %></td>
+           <td><%=link_to :Delete ,ingredient_path(i.id), method: "delete", data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"%></td>
+       </tr>
+     <% end %>
+  </tbody>
+ </table>
+</div>
+<br />
+<span><%= link_to "Go_to_Recipes", recipes_path, class: "btn btn-warning pull-right"%></span><br />

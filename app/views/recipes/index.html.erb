@@ -1,0 +1,48 @@
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid"></div>
+    <div class="nav navbar-nav navbar-center"></div>
+    <div>
+    <ul class="nav navbar-nav navbar-left">
+      <li><%= link_to :Home, root_url, class: "btn btn-default " %></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li><%= link_to :Add_Recipes, new_recipe_path, class: "btn btn-default" %></li>
+      <li><%= link_to "Add_Ingredients", ingredients_path, class: "btn btn-default " %></li>
+    </ul>
+  </div>
+</nav>
+
+
+<!-- <h1><center>Recipes</center></h1> -->
+<span><%#= link_to :Add_Recipes, new_recipe_path, class: "btn btn-success" %></span>
+<span><%#= link_to "Add_Ingredients", ingredients_path, class: "btn btn-success pull-right"%></span><br />
+<br />
+<div class="container">
+<table id="recipes_table" class="table table-bordered" >
+  <thead>
+    <tr class="header">
+      <th>Image</th>
+      <th>Dish Name</th>
+      <th>Sign</th>
+      <th>Recipe Direction</th>
+      <th>Price</th>
+      <th colspan="4"><center>Actions</center></th>
+    </tr>
+   </thead>
+   <tbody>
+    <% @recipes.each do |r| %>
+      <tr>
+        <td><%= image_tag r.image_url(:thumb).to_s%></td>
+        <td><%= r.dish_name %></td>
+        <td><%= r.sign %></td>
+        <td><%= r.recipe_direction %></td>
+        <td><%= r.price %></td>
+        <td><%= link_to :Show, recipe_path(r.id), class: "btn btn-xs btn-success" %></td>
+        <td><%= link_to :Edit, edit_recipe_path(r.id), class: "btn btn-xs btn-warning" %></td>
+        <td><%= link_to :Delete ,recipe_path(r.id), method: "delete", data: {confirm: 'Are you sure?' }, class: "btn btn-xs btn-danger"%></td>
+        <td><%= link_to :Check_out, edit_recipe_path(r.id), class: "btn btn-xs btn-danger" %></td>
+       </tr>
+     <% end %>
+  </tbody>
+ </table>
+</div>

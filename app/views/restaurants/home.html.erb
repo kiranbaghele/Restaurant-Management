@@ -1,0 +1,15 @@
+
+  <%restaurant= Restaurant.find_by(user_id: current_user.id.to_s) %>
+   <% if restaurant.present? %>
+      <h1><center>Hi <%= current_user.email %>, Wellcome to <%= restaurant.name%></center></h1>
+      <%= link_to "Edit Restaurant", edit_restaurant_path(restaurant.id), class: "btn btn-xs btn-warning" %>
+      <span><%= link_to "Create_Your_Recipes", recipes_path, class: "btn btn-success pull-right"%></span><br />
+      <%= link_to "Add_Ingredients", ingredients_path, class: "btn default" %>
+   <%else%>
+     <h1><center>Wellcome <%= current_user.email %>, please setup your restaurant before continuing</center></h1>
+     <span><%= link_to :Add_Restaurants, new_restaurant_path, class: "btn btn-success" %></span>
+   <%end%>
+
+
+
+  <!-- <span><%#= link_to :Manage_Restaurant, restaurants_path, class: "btn btn-success" %></span> -->

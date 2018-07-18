@@ -1,0 +1,120 @@
+<h1>Recipes</h1>
+<%= form_for @recipe, html: { multipart: true }, remote: true do |r|%>
+  <div>
+    <%= r.label :dish_name%><br />
+    <%= r.text_field :dish_name%>
+  </div>
+  <div>
+    <%= r.label :sign%><br />
+    <%= r.text_field :sign%>
+  </div>
+  <div class="field">
+    <%= r.label :recipe_direction%><br />
+    <%= r.text_field :recipe_direction%>
+  </div>
+  <div>
+    <%= r.label :price%><br />
+    <%= r.text_field :price%>
+  </div>
+  <div>
+    <%= r.file_field :image%><br />
+  </div>
+
+  <hr>
+  Add ingredients
+
+  <div class="add-ingredients">
+  <table id="recipe_ingredients_table" class="table table-bordered" >
+    <thead>
+      <tr class="header">
+        <th>Ingredient Name</th>
+        <th>Ingredient Quantity</th>
+        <th>Quantity Measure</th>
+        <th>Sign</th>
+        <th colspan="3"><center>Actions</center></th>
+      </tr>
+     </thead>
+     <tbody class="table-recipe-body">
+      <%= r.fields_for :recipe_ingredient, html: { multipart: true } do |i|%>
+        <tr id="add_ingredient" class="ingredients-row">
+          <td><%= i.text_field :ingredient_name, {class: "ingredient-name"}%><p3 class="row-destroy"><%= i.hidden_field :_destroy%></p3></td>
+          <td><%= i.text_field :ingredient_quantity%></td>
+          <td><%= i.text_field :quantity_measure%></td>
+          <td><%= i.text_field :sign%></td>
+          <td class="remove-row btn btn-xs btn-danger" >remove</td>
+        </tr>
+       <% end %>
+    </tbody>
+   </table>
+   <h id="add_row" class="add-row btn btn-xs btn-danger pull-right" >Add</h>
+  </div>
+  <%= r.submit %>
+<%end%>
+
+<script>
+$(document).ready(function(){
+
+   $('.remove-row').on('click', function(){
+
+
+     var parent_row = $(this).parents(".ingredients-row")
+
+     console.log(parent_row)
+
+     var destroy_field = parent_row.find(".row-destroy").find("input")
+
+     console.log(destroy_field.val())
+
+     destroy_field.val("true")
+     parent_row.hide();
+   });
+});
+
+ $("#add_row").on('click', function(e){
+   e.preventDefault();
+
+   var counter = $(".table-recipe-body").find("tr").length
+
+     $.ajax({
+       dataType: "script",
+       url: "/recipes/add_new_ingredient",
+       data: {counter: counter, remote: true},
+       type: "GET",
+
+     });
+
+ });
+
+ $(".ingredient-name").on("keyup", function(){
+   search_autocomplete()
+ })
+
+ function search_autocomplete(){
+  $(".ingredient-name").autocomplete({
+    minLength: 2,
+
+    source: function(req, res){
+      console.log("======>",req.term)
+
+
+      $.ajax({
+        dataType: "json",
+        type: "get",
+        data: {query: req.term, remote: true},
+        url: "/ingredients/get_search_data",
+
+        // success: function(res){
+        //   console.log("======>",res)
+        // }
+
+        success: function(result){
+          console.log("=========result=========>",result)
+          res (result.arr)
+        }
+      })
+
+    }
+  })
+
+ }
+</script>
